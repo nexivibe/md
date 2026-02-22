@@ -368,10 +368,10 @@ Round N+1: Panel gets Strategy v{N} + new research results → debates again
 To kick off a full report:
 
 ```
-Read DOCTOR.md and use bobby/bobby.md to write bobby/reports/bobby.strategy.md.
+Read DOCTOR.md and use NAME/NAME.md to write NAME/reports/NAME.strategy.md.
 Set this up to leverage Ralph for multiple iterations and do 10 iterations 
 with multiple agents to produce a fantastic strategy document. 
-Use the bobby/scratch/ directory for intermediate results.
+Use the NAME/scratch/ directory for intermediate results.
 ```
 
 That's it. DOCTOR.md IS the prompt. The patient profile IS the input. Ralph handles the iteration. OpenClaw handles the orchestration. Keep it simple.
