@@ -14,6 +14,8 @@ import subprocess
 import tempfile
 import shutil
 import argparse
+import re
+import math
 from pathlib import Path
 from datetime import date
 
@@ -89,6 +91,7 @@ LATEX_TEMPLATE = r"""\documentclass[11pt,letterpaper]{article}
 \usepackage{longtable}
 \usepackage{array}
 \usepackage{calc}
+\renewcommand{\arraystretch}{1.3}
 
 % ── Hyperlinks ────────────────────────────────────────────────────────────────
 \usepackage{hyperref}
@@ -191,6 +194,160 @@ def extract_metadata(filepath):
     }
 
 
+def _is_pipe_line(line):
+    """Check if a line is a pipe-table row."""
+    s = line.strip()
+    return s.startswith('|') and s.endswith('|') and len(s) > 1
+
+
+def _is_separator_line(line):
+    """Check if a line is a pipe-table separator (e.g. |---|:---:|)."""
+    s = line.strip()
+    if not (s.startswith('|') and s.endswith('|')):
+        return False
+    inner = s[1:-1]
+    return bool(re.match(r'^[\s|:\-]+$', inner)) and '-' in inner
+
+
+def _is_hrule(line):
+    """Check if a line is a markdown horizontal rule (---, ***, ___)."""
+    s = line.strip()
+    if len(s) < 3:
+        return False
+    return bool(re.match(r'^[-]{3,}$', s) or re.match(r'^[*]{3,}$', s) or re.match(r'^[_]{3,}$', s))
+
+
+def _split_cells(line):
+    """Split a pipe-table line into cell contents."""
+    s = line.strip()
+    if s.startswith('|'):
+        s = s[1:]
+    if s.endswith('|'):
+        s = s[:-1]
+    return [c.strip() for c in s.split('|')]
+
+
+def _build_separator(num_cols, alignments, sep_cell):
+    """Build a single separator cell string with alignment markers."""
+    if alignments == 'center':
+        return ':' + '-' * max(sep_cell - 2, 1) + ':'
+    elif alignments == 'right':
+        return '-' * max(sep_cell - 1, 1) + ':'
+    elif alignments == 'left_explicit':
+        return ':' + '-' * max(sep_cell - 1, 1)
+    else:
+        return '-' * sep_cell
+
+
+def _adjust_table(table_lines):
+    """Validate table structure and rewrite separator for proportional columns."""
+    sep_idx = 1
+    sep_cells = _split_cells(table_lines[sep_idx])
+    header_cells = _split_cells(table_lines[0])
+    num_cols = len(header_cells)
+
+    # Fix separator column count to match header
+    if len(sep_cells) < num_cols:
+        sep_cells.extend(['---'] * (num_cols - len(sep_cells)))
+    elif len(sep_cells) > num_cols:
+        sep_cells = sep_cells[:num_cols]
+
+    # Detect alignment from existing separator
+    alignments = []
+    for cell in sep_cells:
+        c = cell.strip()
+        left_colon = c.startswith(':')
+        right_colon = c.endswith(':')
+        if left_colon and right_colon:
+            alignments.append('center')
+        elif right_colon:
+            alignments.append('right')
+        elif left_colon:
+            alignments.append('left_explicit')
+        else:
+            alignments.append('left')
+
+    # Normalize data rows to match header column count
+    fixed_lines = [table_lines[0], table_lines[sep_idx]]
+    for idx in range(2, len(table_lines)):
+        cells = _split_cells(table_lines[idx])
+        if len(cells) < num_cols:
+            cells.extend([''] * (num_cols - len(cells)))
+        elif len(cells) > num_cols:
+            # Merge excess cells into the last column (likely unescaped pipes)
+            excess = cells[num_cols - 1:]
+            cells = cells[:num_cols - 1] + [' \\| '.join(excess)]
+        fixed_lines.append('| ' + ' | '.join(cells) + ' |')
+
+    # Compute max content length per column across all non-separator rows
+    max_lens = [0] * num_cols
+    for idx, line in enumerate(fixed_lines):
+        if idx == sep_idx:
+            continue
+        cells = _split_cells(line)
+        for j in range(min(len(cells), num_cols)):
+            max_lens[j] = max(max_lens[j], len(cells[j]))
+
+    # Scale using sqrt to compress range (prevents extreme ratios), min 3
+    scaled = [max(3, int(math.sqrt(max(l, 1)) * 3)) for l in max_lens]
+
+    # Build new separator preserving alignment markers
+    new_sep_parts = []
+    for j in range(num_cols):
+        new_sep_parts.append(_build_separator(num_cols, alignments[j], scaled[j]))
+
+    new_sep = '| ' + ' | '.join(new_sep_parts) + ' |'
+    return [fixed_lines[0], new_sep] + fixed_lines[2:]
+
+
+def preprocess_markdown(text):
+    """Validate and fix markdown tables for reliable pandoc conversion.
+
+    Fixes applied:
+    1. Convert '---' horizontal rules to '* * *' to prevent pandoc from
+       misinterpreting them as simple-table borders (the #1 rendering bug).
+    2. Ensure blank lines surround pipe tables (pandoc requirement).
+    3. Normalize column counts across all rows of each table.
+    4. Rewrite separator dash widths for proportional column allocation.
+    """
+    lines = text.split('\n')
+    result = []
+    i = 0
+    while i < len(lines):
+        # ── Fix 1: Convert bare --- hrules to * * * ──────────────────────
+        # Pandoc treats '---' as a simple-table border, which swallows
+        # subsequent headings and paragraphs into a 5%-width column.
+        # '* * *' is unambiguously a thematic break.
+        if _is_hrule(lines[i]) and not _is_pipe_line(lines[i]):
+            result.append('* * *')
+            i += 1
+            continue
+
+        # ── Fix 2-4: Pipe table validation ───────────────────────────────
+        if (i + 1 < len(lines)
+                and _is_pipe_line(lines[i])
+                and _is_separator_line(lines[i + 1])):
+
+            # Ensure blank line before table
+            if result and result[-1].strip() != '':
+                result.append('')
+
+            # Collect all consecutive pipe-table lines
+            table_lines = []
+            while i < len(lines) and _is_pipe_line(lines[i]):
+                table_lines.append(lines[i])
+                i += 1
+            result.extend(_adjust_table(table_lines))
+
+            # Ensure blank line after table
+            if i < len(lines) and lines[i].strip() != '':
+                result.append('')
+        else:
+            result.append(lines[i])
+            i += 1
+    return '\n'.join(result)
+
+
 def build_pdf(input_path, output_path, metadata):
     """Run pandoc to convert markdown → PDF via the embedded LaTeX template."""
     tmpdir = tempfile.mkdtemp(prefix="pdfize_")
@@ -200,13 +357,21 @@ def build_pdf(input_path, output_path, metadata):
         with open(tpl, "w") as f:
             f.write(LATEX_TEMPLATE)
 
+        # Preprocess markdown for better table rendering
+        with open(input_path, "r") as f:
+            content = f.read()
+        processed = preprocess_markdown(content)
+        processed_path = os.path.join(tmpdir, "input.md")
+        with open(processed_path, "w") as f:
+            f.write(processed)
+
         cmd = [
             "pandoc",
-            str(input_path),
+            processed_path,
             "-o",
             str(output_path),
             "--from",
-            "markdown-tex_math_dollars",
+            "markdown-tex_math_dollars-yaml_metadata_block",
             "--template",
             tpl,
             "--pdf-engine",
