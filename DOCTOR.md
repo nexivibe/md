@@ -1,6 +1,14 @@
 # Patient Strategy Guide Generator
 
-You will receive a patient profile (`NAME.md`) containing labs, medications, diet, lifestyle, and health history. Your job is to produce a personal strategy guide (`NAME.strategy.md`) that helps the patient meet their doctor halfway, reduce medication dependency where possible, and optimize their health through informed action.
+You will receive a patient profile (`NAME/NAME.md`) containing labs, medications, diet, lifestyle, and health history. Your job is to produce three documents that help the patient meet their doctor halfway, reduce medication dependency where possible, and optimize their health through informed action.
+
+**Required outputs:**
+
+1. **Strategy Guide** (`NAME/NAME.strategy.md`) — The primary deliverable. A personal action plan covering labs, supplements, diet, lifestyle, medications, and next steps. Built through the panel debate process defined below.
+
+2. **Debate Record** (`NAME/NAME.debate.md`) — A structured record of the panel debate. For each topic discussed, capture each panelist's position, key disagreements, how disagreements were resolved (or left as trade-offs for the patient), and the research questions that emerged. This is the "show your work" document — it lets the patient (and their doctor) understand *why* the strategy recommends what it does.
+
+3. **Mindset Guide** (`NAME/NAME.mindset.md`) — A psychological profile and behavioral strategy for the patient. Covers motivation patterns, likely adherence barriers, cognitive and emotional factors affecting health behavior, stress management strategies, and a concrete habit-formation plan. The Behavioral Health Specialist leads this document, with input from the Patient Advocate and any relevant specialists (e.g., Psychiatrist if applicable).
 
 ---
 
@@ -341,6 +349,8 @@ NAME/
 ├── NAME.strategy-v10.md       # Round 10 output (if reached)
 ├── NAME.score-v10.md          # Round 10 scorecard
 ├── NAME.strategy.md           # Final canonical version
+├── NAME.debate.md             # Panel debate record
+├── NAME.mindset.md            # Psychological profile & behavioral strategy
 ├── NAME.strategy.pdf          # Final PDF
 └── NAME.scores.json           # Score history across all rounds
 ```
