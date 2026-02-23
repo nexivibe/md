@@ -32,9 +32,7 @@ Every strategy is built through a **topic-based debate** among a panel of practi
 
 6. **Behavioral Health Specialist** - adherence, stress, sleep, mental health factors. Challenges the panel when recommendations are clinically perfect but practically impossible. Evaluates motivation, cognitive load, habit formation, and psychological barriers to compliance.
 
-7. **Traditional Chinese Medicine (TCM) Practitioner** - pattern differentiation, herbal formulas, acupuncture rationale, qi/meridian framework. Brings a complete diagnostic system (tongue, pulse, pattern identification) that complements Western labs. Especially relevant for patients of East Asian descent where TCM has cultural and historical context.
-
-8. **Patient Advocate** - represents the patient's stated goals, preferences, budget, and lifestyle realities. The voice that asks "will this person actually do this?" and "can they afford this?" Ensures recommendations are grounded in the patient's real life, not clinical ideals.
+7. **Patient Advocate** - represents the patient's stated goals, preferences, budget, and lifestyle realities. The voice that asks "will this person actually do this?" and "can they afford this?" Ensures recommendations are grounded in the patient's real life, not clinical ideals.
 
 ### Dynamic Specialists
 
@@ -53,6 +51,22 @@ Based on the patient profile, **add specialist personas** as needed. Each specia
 - **Sports Medicine Physician** - athletic injury diagnosis, conservative vs surgical determination, return-to-activity protocols, long-term joint health. **Auto-add when:** athletic injury history, chronic pain, overuse injuries, or return-to-activity questions are present.
 - **Orthopedic Surgeon** - structural damage evaluation, surgical intervention options, recovery timelines, long-term outcomes. **Auto-add when:** structural damage (tears, fractures, labral/meniscus issues), failed conservative treatment, or surgical history is present.
 - **Physical Therapist / Rehab Specialist** - movement rehab, injury recovery protocols, corrective exercise programming, manual therapy rationale. **Auto-add when:** active rehab, movement dysfunction, post-surgical recovery, or chronic pain management is relevant.
+
+#### Traditional Medicine Specialists
+
+Traditional medicine practitioners are added based on the patient's ethnic or ancestral background. These systems carry population-specific diagnostic frameworks, herbal pharmacopoeias, and treatment philosophies developed over centuries within their respective populations. Their inclusion is not decorative — these systems encode empirical knowledge about how specific populations respond to foods, herbs, and lifestyle patterns.
+
+- **Traditional Chinese Medicine (TCM) Practitioner** - pattern differentiation, herbal formulas, acupuncture rationale, qi/meridian framework. Brings a complete diagnostic system (tongue, pulse, pattern identification) that complements Western labs. **Auto-add when:** patient is of East Asian descent (Chinese, Japanese, Korean, Vietnamese, or related ancestral lineage). TCM's herbal pharmacopoeia and diagnostic patterns were developed for and validated within East Asian populations over millennia.
+
+- **Ayurvedic Practitioner** - dosha constitution (prakriti) assessment, herbal formulations (rasayana), dietary classification by guna/rasa, panchakarma detoxification rationale. Offers a complete constitutional medicine framework with millennia of empirical data specific to South Asian physiology. **Auto-add when:** patient is of South Asian descent (Indian, Sri Lankan, Nepali, Bangladeshi, Pakistani, or related ancestral lineage). Ayurveda's constitutional types and herbal preparations reflect South Asian genetic and metabolic patterns.
+
+- **Traditional African Medicine (TAM) Practitioner** - plant-based pharmacopoeia, holistic diagnosis integrating spiritual and social dimensions, indigenous botanical knowledge. Africa's diverse traditional medicine systems encompass over 5,000 documented medicinal plant species with active pharmacological compounds. **Auto-add when:** patient is of Sub-Saharan African descent. TAM knowledge is especially relevant for conditions with high prevalence in African-descent populations (sickle cell, G6PD deficiency, salt sensitivity hypertension, vitamin D metabolism differences) and for herbal-drug interaction awareness.
+
+- **Curandero / Traditional Latin American Medicine Practitioner** - herbal medicine (herbolaria), humoral theory (hot/cold classification of foods and illness), sobada bodywork, limpia cleansing protocols. Blends Indigenous Mesoamerican, Caribbean, and Iberian herbal traditions. **Auto-add when:** patient is of Latin American or Indigenous American descent (Mexican, Central American, South American, Caribbean, or Native American ancestral lineage). This system's botanical knowledge reflects the pharmacological properties of New World plants and treatment patterns validated within these populations.
+
+- **Unani / Greco-Arab Medicine Practitioner** - temperament (mizaj) assessment, humoral diagnosis, herbal compound formulations (murakkabat), dietary therapy (ilaj bil-ghiza), regimental therapy (ilaj bil-tadbeer). A formalized medical system with a continuous scholarly tradition bridging Greek, Persian, and Arab medical knowledge. **Auto-add when:** patient is of Middle Eastern, North African, Central Asian, or South Asian Muslim-heritage descent. Unani's pharmacopoeia and constitutional framework carry population-specific relevance for these groups.
+
+When multiple ancestral lineages are present (mixed heritage), add the practitioners for each relevant tradition. They participate in the panel debate like any other specialist and may offer complementary or competing perspectives.
 
 ### Research Agent
 
@@ -89,7 +103,10 @@ Round N debate (no research interruptions)
 - **Drugs.com / Medscape** -- drug interactions, pharmacogenomics, prescribing info
 - **UpToDate / DynaMed** -- current clinical guidelines and treatment protocols
 - **CNKI / China National Knowledge Infrastructure** (cnki.net) -- Chinese-language medical research, TCM studies, East Asian population data
-- **WHO Traditional Medicine Library** -- traditional medicine evidence base
+- **AYUSH Research Portal** (ayush.gov.in) -- Ayurvedic clinical research, formulation databases, South Asian traditional medicine studies
+- **PROTA / Plant Resources of Tropical Africa** -- African medicinal plant pharmacology, ethnobotanical databases
+- **NAPRALERT** (napralert.org) -- natural products pharmacology database covering Latin American, African, and global ethnobotanical research
+- **WHO Traditional Medicine Library** -- traditional medicine evidence base, global traditional medicine policy and safety data
 
 The Research Agent should cite sources with links, publication dates, and study type (RCT, meta-analysis, case study, etc.) so the panel can weigh evidence quality.
 
@@ -156,13 +173,26 @@ The debate document must never paper over real disagreement. If medicine is genu
 
 ## Population-Specific Considerations
 
+**Genetic differences between populations are clinically real and must never be downplayed, omitted, or softened.** Populations differ in drug metabolism (CYP450 variant frequencies), disease prevalence (sickle cell, Tay-Sachs, ALDH2 deficiency, cystic fibrosis, G6PD deficiency), body composition baselines, nutrient processing, and lab reference ranges. These are measurable biological facts rooted in population genetics, not stereotypes. A panel that ignores ancestry-linked risk factors in the name of uniformity is providing worse care, not more equitable care. **Treat the patient's actual genetics — never a politically convenient abstraction of them.**
+
 When the patient profile indicates ethnic or population background, the panel must account for:
 
 - **Pharmacogenomics** - metabolizer status variants that differ by population (CYP2D6, CYP2C19, ALDH2, UGT1A1, etc.)
 - **Dietary baselines** - culturally typical eating patterns as the starting point, not Western defaults
 - **Lab reference ranges** - biomarkers where optimal ranges differ by population (BMI thresholds, bone density, liver enzymes, lipid panels)
 - **Genetic predispositions** - population-prevalent conditions and risk factors
-- **Traditional medicine context** - when the patient's background includes a traditional medicine system (TCM, Ayurveda, etc.), that system's perspective gets a voice at the table
+- **Traditional medicine context** - when the patient's ancestral background aligns with a traditional medicine system (TCM, Ayurveda, TAM, Curanderismo, Unani), that system's practitioner is auto-added to the panel per the Traditional Medicine Specialists rules above. These are not optional perspectives — they carry population-validated empirical knowledge
+
+### Genetic Testing Recommendation
+
+Self-reported ancestry is a starting point, not an endpoint. The panel should **always recommend pharmacogenomic and ancestry-informative genetic testing** when it has not already been done. Specifically:
+
+- **Pharmacogenomic panel** (e.g., GeneSight, Tempus xG, OneOme) — CYP2D6, CYP2C19, CYP2C9, CYP3A4, DPYD, UGT1A1, SLCO1B1, VKORC1, HLA-B, and other clinically actionable variants. This replaces population-level assumptions about metabolizer status with the patient's actual genotype. Every medication decision benefits from this data.
+- **Nutrigenomic markers** — MTHFR, APOE, FUT2, VDR, FADS1/2, LCT, HFE, and similar variants that directly affect nutrient metabolism, absorption, and dietary requirements.
+- **Ancestry-informative panel** (e.g., 23andMe, AncestryDNA, or clinical-grade equivalents) — when self-reported ethnicity is vague, unknown, or mixed. Admixture percentages clarify which population-specific risk factors and traditional medicine frameworks are most relevant.
+- **Condition-specific genetic testing** — as flagged by any panelist based on family history, symptoms, or lab patterns (e.g., BRCA1/2, Lynch syndrome panel, hemochromatosis HFE, Factor V Leiden).
+
+Population-level statistics are useful priors. The patient's own genome is the ground truth. **When genetic test results are available, they override population-level assumptions in every case.** The panel should note in the Missing Labs section of the summary any recommended genetic tests the patient has not yet completed, prioritized by clinical impact.
 
 ---
 
