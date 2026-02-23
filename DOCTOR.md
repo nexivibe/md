@@ -1,14 +1,18 @@
-# Patient Strategy Guide Generator
+# Patient Report Generator
 
-You will receive a patient profile (`NAME/NAME.md`) containing labs, medications, diet, lifestyle, and health history. Your job is to produce three documents that help the patient meet their doctor halfway, reduce medication dependency where possible, and optimize their health through informed action.
+You will receive a patient profile (`NAME/NAME.md`) containing labs, medications, diet, lifestyle, and health history. Your job is to produce five documents that help the patient meet their doctor halfway, reduce medication dependency where possible, and optimize their health through informed action.
 
 **Required outputs:**
 
-1. **Strategy Guide** (`NAME/NAME.strategy.md`) — The primary deliverable. A personal action plan covering labs, supplements, diet, lifestyle, medications, and next steps. Built through the panel debate process defined below.
+1. **Summary** (`NAME/NAME.summary.md`) — The patient-facing overview. Written at a high school reading level in plain language. Contains an executive summary, a header-level summary of every confirmed condition and every potential condition flagged by lab work (with a note on case complexity), a list of missing labs needed to drive more clarity, and an index that maps each condition to its corresponding section in the debate document. This is what the patient reads first to understand their situation.
 
-2. **Debate Record** (`NAME/NAME.debate.md`) — A structured record of the panel debate. For each topic discussed, capture each panelist's position, key disagreements, how disagreements were resolved (or left as trade-offs for the patient), and the research questions that emerged. This is the "show your work" document — it lets the patient (and their doctor) understand *why* the strategy recommends what it does.
+2. **Debate Record** (`NAME/NAME.debate.md`) — The detailed clinical record, written for a medical expert audience. A structured record of the panel debate organized by topic. For each topic: each panelist's position, key disagreements, how disagreements were resolved (or where they remain unresolved), the research questions that emerged, and the factions that formed. Each topic header includes a **status** (resolved / active contention / insufficient data) and a **confidence level** (high / moderate / low). When strong contention exists, the debate presents the various factions honestly as a map of what would happen if this case were taken to multiple different doctors — not a forced consensus. See "Debate Escalation" below for the contention protocol.
 
-3. **Mindset Guide** (`NAME/NAME.mindset.md`) — A psychological profile and behavioral strategy for the patient. Covers motivation patterns, likely adherence barriers, cognitive and emotional factors affecting health behavior, stress management strategies, and a concrete habit-formation plan. The Behavioral Health Specialist leads this document, with input from the Patient Advocate and any relevant specialists (e.g., Psychiatrist if applicable).
+3. **Inputs Guide** (`NAME/NAME.inputs.md`) — A complete listing of every supplement and medication in the recommended protocol. For each supplement: the recommended form, dosage, timing, rationale, and **brand research** — evaluate 3-5 brands based on quality, third-party/independent lab testing (NSF, USP, ConsumerLab, ITQS, etc.), bioavailability, and value, then make a specific pick with justification. For medications: current dosage, purpose, relevant interactions, and any optimization or tapering notes from the panel.
+
+4. **Execution Plan** (`NAME/NAME.execution.md`) — The actionable playbook. Takes the panel's recommendations and translates them into a concrete, sequenced plan the patient can follow. Organized by time horizon (immediate / week 1-2 / month 1 / month 2-3 / ongoing). Includes exactly what to buy, what to start when, what to track, what to bring to their doctor, and decision points where they need professional input before proceeding. This is the "what do I actually do tomorrow" document.
+
+5. **Mindset Guide** (`NAME/NAME.mindset.md`) — A psychological profile and behavioral strategy for the patient. Covers motivation patterns, likely adherence barriers, cognitive and emotional factors affecting health behavior, stress management strategies, and a concrete habit-formation plan. The Behavioral Health Specialist leads this document, with input from the Patient Advocate and any relevant specialists (e.g., Psychiatrist if applicable).
 
 ---
 
@@ -107,10 +111,32 @@ The Research Agent operates at different depths depending on the question's stak
 ### How the Panel Works
 
 - Organize discussion **by topic** (e.g., thyroid function, lipid management, gut health).
+- **Run topics in parallel where independent.** Topics that don't depend on each other's conclusions should be debated simultaneously by the relevant subset of panelists.
 - Each persona states their position, rationale, and recommendations for that topic.
 - Any panelist may add questions to the **Research Queue** for investigation between rounds.
 - Where the panel **agrees**, synthesize a **unified recommendation** with inline attribution to the supporting personas.
-- Where they **disagree**, present the competing views clearly so the patient understands the trade-offs.
+- Where they **disagree**, follow the Debate Escalation protocol below.
+
+### Debate Escalation
+
+Not all disagreements are equal. The panel uses a tiered response to contention:
+
+**Tier 1 — Mild disagreement (resolvable):**
+The panelists have different preferences but can reach consensus through discussion. One round of back-and-forth resolves it. Record the resolution and the minority concern in the debate document. Mark status: **resolved**, confidence: **high**.
+
+**Tier 2 — Moderate contention (needs reinforcement):**
+Two or more panelists hold meaningfully different positions based on different evidence or clinical philosophy. **Bring in 2 additional specialist voices** relevant to the contention to weigh in. Run another round of debate with the expanded group. If consensus emerges, mark status: **resolved**, confidence: **moderate**. If not, escalate to Tier 3.
+
+**Tier 3 — Strong contention (factions form):**
+The disagreement reflects a genuine split in medical opinion — the kind where different doctors would give different advice. **Bring in up to 4 additional experts** to weigh in. The goal is NOT forced consensus. Instead:
+
+1. **Map the factions.** Identify 2-3 distinct camps and name each position clearly (e.g., "aggressive supplementation camp" vs. "watchful waiting camp" vs. "medication-first camp").
+2. **Present each faction's case.** Full reasoning, evidence cited, risks acknowledged.
+3. **Describe the real-world expectation.** If this patient walked into 5 different doctors' offices, what would each likely recommend? Be honest about the distribution — "3 out of 5 would likely do X, 1 would do Y, 1 would do Z."
+4. **Note what would tip the balance.** What additional data (labs, imaging, trial period) would resolve the contention?
+5. Mark status: **active contention**, confidence: **low to moderate** depending on the evidence quality behind each faction.
+
+The debate document must never paper over real disagreement. If medicine is genuinely uncertain, the patient deserves to know that.
 
 ---
 
@@ -142,35 +168,105 @@ When the patient profile indicates ethnic or population background, the panel mu
 
 ## Output Sections
 
-Every `NAME.strategy.md` must include the following sections:
+### `NAME.summary.md` — Patient Summary
 
-### 1. Executive Summary
-High-level overview of the patient's current situation, key findings, and top priorities.
+Written in plain language for a patient with a high school education. No jargon without immediate explanation. Short sentences. Clear structure.
 
-### 2. Lab Review & Gaps
-- Analysis of existing lab results with panel commentary.
-- Recommended additional labs to fill gaps in the clinical picture.
-- Population-specific reference range adjustments where applicable.
+#### 1. Executive Summary
+2-3 paragraphs covering: what's going on with your health, what the panel found, and what the top priorities are. Written in second person ("you").
 
-### 3. Supplement Protocol
-- Recommended supplements with rationale from the panel debate.
-- Detail level (dosage, timing, form, interactions) is **flexible per case** - provide what the patient profile warrants.
-- Pharmacist and Geneticist review for interactions and metabolizer considerations.
+#### 2. Condition Map
+A header-level summary for **every condition** — both confirmed and potential (flagged by lab work). Each entry includes:
+- **Condition name** (plain language, with medical term in parentheses)
+- **Status**: Confirmed / Suspected / Worth investigating
+- **One-sentence explanation** of what it means
+- **Debate link**: `→ See [Debate: Section Name]` — an index reference to the corresponding section in `NAME.debate.md`
+- **Debate status & confidence**: e.g., "Panel agreed (high confidence)" or "Doctors divided — see debate (moderate confidence)"
 
-### 4. Diet & Lifestyle Plan
-- Dietary modifications tailored to the patient's current diet and goals.
-- Lifestyle recommendations (sleep, movement, stress, etc.) tuned to where the patient is today.
-- Behavioral Health input on adherence and habit formation.
+At the top of the Condition Map, include a **complexity note**: a 1-2 sentence honest assessment of how straightforward or complex this case is (e.g., "This is a moderately complex case — you have several conditions that interact with each other, which means treatment choices in one area affect the others").
 
-### 5. Medication Optimization
-- Review of current medications with panel perspectives.
-- Tapering strategies where appropriate, with safety considerations and monitoring plans.
-- Pharmacogenomic considerations flagged where relevant.
+#### 3. Missing Labs
+A clear list of labs the patient should request from their doctor, organized by priority:
+- **Critical** — needed before making key decisions
+- **Important** — would significantly clarify the picture
+- **Helpful** — would add useful data but decisions can proceed without them
 
-### 6. Action Items & Next Steps
-- Prioritized checklist of concrete actions the patient can take.
-- Short-term and long-term milestones.
-- Follow-up lab work schedule.
+For each lab: what it tests (in plain language), why it matters for this patient, and what the result would help decide.
+
+#### 4. Key Recommendations Overview
+A brief, non-technical summary of the major recommendations across supplements, diet, lifestyle, and medications. Points the patient to `NAME.execution.md` for the full action plan and `NAME.inputs.md` for supplement/medication details.
+
+---
+
+### `NAME.debate.md` — Panel Debate Record
+
+Written for a medical expert audience. Full clinical detail, citations, and technical language are expected.
+
+Each topic section includes a **header block**:
+```
+## [Topic Name]
+**Status:** Resolved | Active Contention | Insufficient Data
+**Confidence:** High | Moderate | Low
+**Panelists:** [list of panelists who participated]
+**Escalation:** None | Tier 2 (+2 experts) | Tier 3 (+4 experts, factions formed)
+```
+
+Within each topic:
+- Each panelist's position with rationale and evidence
+- Points of agreement and disagreement
+- If Tier 2/3: the additional experts brought in and their positions
+- If Tier 3: the faction map, real-world expectation ("if you saw 5 doctors..."), and what data would resolve it
+- Research questions that emerged and their answers (if resolved)
+- The final recommendation or the unresolved options presented to the patient
+
+---
+
+### `NAME.inputs.md` — Supplements & Medications Guide
+
+A complete reference for every substance in the protocol.
+
+**For each supplement:**
+- Name, form, dosage, timing, and why it's recommended
+- **Brand research**: Evaluate 3-5 brands against these criteria:
+  - Third-party testing (NSF International, USP Verified, ConsumerLab approved, ITQS, or equivalent)
+  - Manufacturing quality (GMP certified, raw material sourcing)
+  - Bioavailability of the specific form
+  - Value (cost per effective dose, not just per pill)
+- **Pick**: Name a specific brand and product with a 1-2 sentence justification
+- Interactions with other supplements and medications in the protocol
+- What to watch for (side effects, signs it's working, signs to stop)
+
+**For each medication:**
+- Current dosage and purpose
+- Key interactions within the protocol
+- Panel perspective on optimization or tapering (with safety notes)
+- Pharmacogenomic flags where relevant
+
+---
+
+### `NAME.execution.md` — Execution Plan
+
+The "what do I actually do" document. Concrete, sequenced, actionable.
+
+**Organized by time horizon:**
+
+- **Immediate (this week):** What to buy, what to schedule, what to stop doing
+- **Week 1-2:** What to start, what to track, initial adjustments
+- **Month 1:** Full protocol in place, what to monitor, when to check in with doctor
+- **Month 2-3:** Adjustments based on response, follow-up labs, protocol refinements
+- **Ongoing:** Maintenance protocol, recurring lab schedule, long-term goals
+
+**Each action item includes:**
+- What to do (specific and concrete)
+- Why (one sentence linking back to the panel's reasoning)
+- Decision points: where the patient needs their doctor's input before proceeding
+- Tracking: what to measure or note to know if it's working
+
+---
+
+### `NAME.mindset.md` — Mindset Guide
+
+(Structure unchanged — see Behavioral Health Specialist role above.)
 
 ---
 
@@ -228,7 +324,7 @@ Spawn a single subagent with the full prompt:
 - Produce the complete strategy document following all Output Sections
 - Output a Research Queue of questions the panel needs answered before Round 2
 
-**Output:** `NAME/NAME.strategy-v1.md`
+**Output:** All five documents as v1 drafts (`NAME/NAME.summary-v1.md`, `NAME/NAME.debate-v1.md`, `NAME/NAME.inputs-v1.md`, `NAME/NAME.execution-v1.md`, `NAME/NAME.mindset-v1.md`)
 
 ### Phase 2: Rounds 2-10 -- Ralph Loop Refinement
 
@@ -241,7 +337,7 @@ Spawn a subagent with:
 **Input:**
 - `DOCTOR.md` (panel instructions)
 - `NAME/NAME.md` (patient profile)
-- `NAME/NAME.strategy-v{N-1}.md` (previous version)
+- All v{N-1} documents (`NAME/NAME.summary-v{N-1}.md`, `NAME/NAME.debate-v{N-1}.md`, `NAME/NAME.inputs-v{N-1}.md`, `NAME/NAME.execution-v{N-1}.md`, `NAME/NAME.mindset-v{N-1}.md`)
 - `NAME/research/*.md` (pre-research, still available)
 
 **Instructions to the subagent:**
@@ -249,11 +345,11 @@ Spawn a subagent with:
 ```
 You are the panel from DOCTOR.md running refinement round {N} of 10.
 
-Read the patient profile and the current strategy (v{N-1}).
+Read the patient profile and all current documents (v{N-1}).
 
 For this round, the panel must:
 
-1. AUDIT -- Read every recommendation in the current strategy. Is it still
+1. AUDIT -- Read every recommendation across all documents. Is it still
    the panel's best thinking? Flag anything that feels weak, unsupported,
    contradictory, or impractical.
 
@@ -271,9 +367,12 @@ For this round, the panel must:
    this round and the next. New data found in later rounds should update
    or override earlier recommendations.
 
-5. INTEGRATE -- Where new insights emerge, weave them into the strategy
-   seamlessly. Do not just append. The final document should read as a
-   cohesive whole, not a layered edit history.
+5. INTEGRATE -- Where new insights emerge, weave them into all documents
+   seamlessly. Do not just append. Each document should read as a
+   cohesive whole, not a layered edit history. Ensure cross-document
+   consistency: the summary's condition map must match the debate's
+   topic headers, the inputs guide must reflect current recommendations,
+   and the execution plan must sequence the latest protocol.
 
 6. RESEARCH QUEUE -- At the end of the debate, each panelist may submit
    research requests. These are specific questions the panel needs answered
@@ -298,17 +397,21 @@ For this round, the panel must:
    - Clinical accuracy
    - Actionability (can the patient actually follow this?)
    - Completeness (are there gaps?)
-   - Internal consistency (do recommendations conflict with each other?)
+   - Internal consistency (do recommendations conflict across documents?)
    - Evidence quality (are claims well-supported?)
    - Personalization (is this generic or truly tailored to this patient?)
+   - Summary clarity (would a non-medical reader understand the summary?)
+   - Debate honesty (are genuine disagreements preserved, not papered over?)
+   - Inputs quality (are brand picks well-researched and justified?)
+   - Execution specificity (could the patient follow the plan without guessing?)
 
-Output the improved strategy as: NAME/NAME.strategy-v{N}.md
+Output improved documents as: NAME/NAME.{summary,debate,inputs,execution,mindset}-v{N}.md
 Output the scorecard as: NAME/NAME.score-v{N}.md
 ```
 
 ### Early Exit
 
-If all 6 scoring dimensions hit 9/10 or above for 2 consecutive rounds, exit the loop early. Further rounds will just be polishing with diminishing returns.
+If all 10 scoring dimensions hit 9/10 or above for 2 consecutive rounds, exit the loop early. Further rounds will just be polishing with diminishing returns.
 
 ### Circuit Breaker
 
@@ -318,8 +421,8 @@ If the average score does not improve for 3 consecutive rounds, exit the loop. T
 
 After the loop completes (round 10, early exit, or circuit breaker):
 
-1. Copy the final version to `NAME/NAME.strategy.md` (the canonical output)
-2. Run `pdfize.py` to generate the PDF
+1. Copy the final versions to canonical filenames (`NAME/NAME.summary.md`, `NAME/NAME.debate.md`, `NAME/NAME.inputs.md`, `NAME/NAME.execution.md`, `NAME/NAME.mindset.md`)
+2. Run `pdfize.py` to generate PDFs for each document
 3. Save scorecard history to `NAME/NAME.scores.json` for tracking
 
 ### File Structure During Execution
@@ -333,9 +436,17 @@ NAME/
 │   ├── medication-review.md
 │   ├── condition-guidelines.md
 │   └── pharmacogenomics.md
-├── NAME.strategy-v1.md        # Round 1 output
+├── NAME.summary-v1.md         # Round 1 outputs
+├── NAME.debate-v1.md
+├── NAME.inputs-v1.md
+├── NAME.execution-v1.md
+├── NAME.mindset-v1.md
 ├── NAME.score-v1.md           # Round 1 scorecard
-├── NAME.strategy-v2.md        # Round 2 output
+├── NAME.summary-v2.md         # Round 2 outputs
+├── NAME.debate-v2.md
+├── NAME.inputs-v2.md
+├── NAME.execution-v2.md
+├── NAME.mindset-v2.md
 ├── NAME.score-v2.md           # Round 2 scorecard
 ├── scratch/
 │   ├── research-queue-v1.md   # Questions from Round 1
@@ -346,23 +457,27 @@ NAME/
 │   ├── research-v2/           # Answers fetched between Round 2 and 3
 │   └── ...
 ├── ...
-├── NAME.strategy-v10.md       # Round 10 output (if reached)
-├── NAME.score-v10.md          # Round 10 scorecard
-├── NAME.strategy.md           # Final canonical version
-├── NAME.debate.md             # Panel debate record
-├── NAME.mindset.md            # Psychological profile & behavioral strategy
-├── NAME.strategy.pdf          # Final PDF
+├── NAME.summary.md            # Final canonical versions
+├── NAME.debate.md
+├── NAME.inputs.md
+├── NAME.execution.md
+├── NAME.mindset.md
+├── NAME.summary.pdf           # Final PDFs
+├── NAME.debate.pdf
+├── NAME.inputs.pdf
+├── NAME.execution.pdf
+├── NAME.mindset.pdf
 └── NAME.scores.json           # Score history across all rounds
 ```
 
 ### Execution Cycle (Per Round)
 
 ```
-Round N: Panel debate → Strategy v{N} + Research Queue v{N}
+Round N: Panel debate → All documents v{N} + Research Queue v{N}
            ↓
 Research: Parallel subagents answer every question in the queue
            ↓
-Round N+1: Panel gets Strategy v{N} + new research results → debates again
+Round N+1: Panel gets all documents v{N} + new research results → debates again
 ```
 
 ### Parallel Execution Notes
@@ -378,9 +493,11 @@ Round N+1: Panel gets Strategy v{N} + new research results → debates again
 To kick off a full report:
 
 ```
-Read DOCTOR.md and use NAME/NAME.md to write NAME/reports/NAME.strategy.md.
-Set this up to leverage Ralph for multiple iterations and do 10 iterations 
-with multiple agents to produce a fantastic strategy document. 
+Read DOCTOR.md and use NAME/NAME.md to produce the full report suite:
+NAME/NAME.summary.md, NAME/NAME.debate.md, NAME/NAME.inputs.md,
+NAME/NAME.execution.md, and NAME/NAME.mindset.md.
+Set this up to leverage Ralph for multiple iterations and do 10 iterations
+with multiple agents to produce fantastic output across all five documents.
 Use the NAME/scratch/ directory for intermediate results.
 ```
 
