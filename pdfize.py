@@ -127,6 +127,9 @@ LATEX_TEMPLATE = r"""\documentclass[11pt,letterpaper]{article}
   \end{mdframed}%
 }
 
+% ── Strikethrough (pandoc converts ~~text~~ to \st{}) ────────────────────────
+\usepackage{soul}
+
 % ── Pandoc compatibility ──────────────────────────────────────────────────────
 \providecommand{\tightlist}{%
   \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
